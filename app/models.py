@@ -17,7 +17,7 @@ class Member(models.Model):
     role = models.CharField(max_length=20, choices=Role.choices, default=Role.MEMBER)
 
     def __str__(self):
-        return f"{self.name} - {self.calculate_age()} Anos"
+        return f"{self.name}"
 
     def calculate_age(self):
         today = datetime.today()

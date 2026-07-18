@@ -97,15 +97,55 @@
                         📅 {{ next_event.event_date|date:"d/m/Y às H:i" }}
                     </p>
                 </div>
+                
+                <div class="mt-6 pt-4 border-t border-gray-100" id="bloco-confirmacao">
+                    <!-- O HTMX agora controla o form inteiro. O hx-target diz para substituir essa div inteira com a resposta -->
+                    <form hx-post="/events/{{ next_event.id }}/confirm/" 
+                        hx-target="#bloco-confirmacao" 
+                        hx-swap="outerHTML">
+                        
+                        <div class="mb-3">
+                            <label for="telefone" class="block text-xs font-bold text-gray-600 mb-1">Seu Número de WhatsApp (apenas números):</label>
+                            <input type="text" id="telefone" name="telefone" required
+                                placeholder="Ex: 83999999999" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-upa-orange focus:ring-1 focus:ring-upa-orange text-sm text-gray-700">
+                        </div>
+                        
+                        <button type="submit"
+                            class="w-full bg-upa-orange hover:bg-upa-dark text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md">
+                            Confirmar Presença
+                        </button>
+                    </form>
+                    
 
-                <div class="mt-6 pt-4 border-t border-gray-100">
-                    <!-- Botão chamando a view de confirmação do evento atual -->
-                    <button 
-                        hx-post="/eventos/{{ next_event.id }}/confirmar/" 
-                        hx-swap="outerHTML"
-                        class="w-full bg-upa-orange hover:bg-upa-dark text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md">
-                        Confirmar Presença
-                    </button>
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <h4 class="text-sm font-bold text-gray-600 mb-3 flex items-center justify-between">
+                            Lista de Presença
+                            <!-- Um contador usando o filtro length do Django -->
+                            <span class="bg-gray-100 text-upa-orange px-2 py-1 rounded-full text-xs">{{ confirmed_members|length }} confirmados</span>
+                        </h4>
+                        
+                        <!-- Trocamos a DIV por UL. O max-h-40 e overflow-y-auto criam uma barra de rolagem se a lista crescer muito -->
+                        <ul class="space-y-2 max-h-40 overflow-y-auto pr-1">
+                            {% for member in confirmed_members %}
+                                <li class="flex items-center gap-3 bg-gray-50 hover:bg-gray-100 transition-colors p-2.5 rounded-lg border border-gray-200">
+                                    <!-- Ícone de Check verdinho -->
+                                    <div class="bg-green-100 text-green-600 rounded-full p-1 flex-shrink-0">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <!-- O nome que vem do seu __str__ -->
+                                    <span class="text-sm font-medium text-gray-700 truncate">{{ member }}</span>
+                                </li>
+                            {% empty %}
+                                <!-- A mágica do Django: se o QuerySet estiver vazio, ele renderiza isso automaticamente -->
+                                <li class="text-sm text-gray-400 italic text-center py-2">
+                                    Ninguém confirmou ainda. Seja o primeiro!
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             {% else %}
                 <div class="text-center text-gray-500 py-6">
