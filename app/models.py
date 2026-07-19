@@ -26,6 +26,18 @@ class Member(models.Model):
         return age
 
 '''
+CLASSE CONVIDADO
+'''
+class Guest(models.Model):
+    name = models.CharField(max_length=100, null=False)
+    phome_number = models.CharField(null=False)
+
+    host = models.ForeignKey(Member, on_delete=models.PROTECT, related_name="quem_convidou", blank=False)
+
+    def __str__(self):
+        return f"{self.name} - Convidado de {self.host.name}"
+
+'''
 CLASSE OFERTINHA DO AMOR
 '''
 class Contribution(models.Model):

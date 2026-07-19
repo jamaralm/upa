@@ -30,8 +30,6 @@ def index(request):
 
     confirmed_members_list = [member.name for member in confirmed_members]
 
-    print(confirmed_members_list)
-
     context = {
         'goal': actual_goal,
         'goal_percentage': goal_percentage,
