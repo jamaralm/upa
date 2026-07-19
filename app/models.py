@@ -30,7 +30,7 @@ CLASSE CONVIDADO
 '''
 class Guest(models.Model):
     name = models.CharField(max_length=100, null=False)
-    phome_number = models.CharField(null=False)
+    phone_number = models.CharField(null=False)
 
     host = models.ForeignKey(Member, on_delete=models.PROTECT, related_name="quem_convidou", blank=False)
 
@@ -87,6 +87,7 @@ class Event(models.Model):
     place = models.CharField(max_length=250)
 
     confirmed_members = models.ManyToManyField(Member, blank=True, related_name="confirmed_on_event")
+    confirmed_guests = models.ManyToManyField(Guest, blank=True, related_name="confirmed_members_on_event")
 
     def __str__(self):
         return f"{self.name}"
