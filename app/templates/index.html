@@ -103,7 +103,7 @@
                     <form hx-post="/events/{{ next_event.id }}/confirm/" 
                         hx-target="#bloco-confirmacao" 
                         hx-swap="outerHTML">
-                        
+                        {% csrf_token %}
                         <div class="mb-3">
                             <label for="telefone" class="block text-xs font-bold text-gray-600 mb-1">Seu Número de WhatsApp (apenas números):</label>
                             <input type="text" id="telefone" name="telefone" required
@@ -170,7 +170,7 @@
                             <!-- Formulário HTMX -->
                             <!-- O hx-target="#retorno-convidado" vai pegar a resposta do seu Python e injetar na div lá embaixo -->
                             <form hx-post="/events/{{ next_event.id }}/guest/" hx-target="#retorno-convidado" hx-swap="innerHTML">
-                                
+                                {% csrf_token %}
                                 <div class="space-y-4">
                                     <!-- 1. Telefone do Sócio (Para achar o 'host') -->
                                     <div>

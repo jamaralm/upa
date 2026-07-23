@@ -38,6 +38,11 @@ ALLOWED_HOSTS = [
     '127.0.0.1'             # Para rodar no seu Linux localmente
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.vercel.app',
+    'https://joaoamaral.dev',
+    'https://www.joaoamaral.dev',
+]
 
 # Application definition
 
