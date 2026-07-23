@@ -31,7 +31,11 @@ SECRET_KEY = 'django-insecure-tqihyg$9^am2d*p@1&wob-0&*5ik1%5p2&g3ao(yk4u$%6t^6d
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'upa-4avty5jbf-jamaralms-projects.vercel.app'
+    '.vercel.app',          # O ponto inicial diz "qualquer subdomínio da Vercel"
+    'joaoamaral.dev',       # O seu domínio comprado
+    'www.joaoamaral.dev',   # O seu domínio com www
+    'localhost',            # Para rodar no seu Linux localmente
+    '127.0.0.1'             # Para rodar no seu Linux localmente
 ]
 
 
