@@ -24,7 +24,7 @@ def index(request):
     '''
     EVENT
     '''
-    next_event = Event.objects.order_by('-event_date').first()
+    next_event = Event.objects.order_by('event_date').first()
     confirmed_members = Event.objects.first().confirmed_members.all()
     confirmed_guests = Event.objects.first().confirmed_guests.all()
 
